@@ -1,0 +1,94 @@
+<%- include('../includes/header.ejs') %>
+
+    <div class="site-section">
+      <div class="container">
+        <div class="row mb-5">
+          <div class="col-12 d-flex">
+            <h2>Recent Posts</h2>
+          </div>
+        </div>
+
+        <div class="row" id="dataViewer">
+
+            <% if(posts.length  > 0) {%>
+                <% for(let post of posts) {%>
+
+            <div class='col-lg-4 mb-4'>
+            <div class='entry2'>
+            <a href='#'> <img src='<%= post.imageUrl %>' alt='Image' class='img-fluid rounded;'></a>
+            <div class='excerpt'>
+            <h2><a href='posts/<%= post.id %>'><%= post.title %></a></h2>
+            <div class='post-meta align-items-center text-left clearfix'>
+            <span class='d-inline-block mt-1'>By <%= post.author %><a href='#'></a></span>
+            <span>&nbsp;-&nbsp; </span>
+            </div>
+              
+            <p>
+                <%= post.body %>
+
+            <!-- $string = $name[3];
+            $string = strip_tags($string);
+            $string = trim($string);
+            echo substr($string, 0, 150); -->
+            </p>
+            <p><a href='posts/<%= post.id %>''></a></p>
+            </div>
+            </div>
+            </div>
+            <% } %>
+            <% } else { %>
+                <div>
+                    <h5>
+                        No Posts found
+                    </h5>
+                </div>
+
+            <%} %>
+
+           
+         
+
+
+        
+          
+         
+        </div>
+        
+      </div>
+    </div>
+
+  
+    <%- include('../includes/footer.ejs') %>
+
+
+   <script>
+     function search(name){
+       console.log(name);
+       fetchSearchData(name);
+     }
+
+     function fetchSearchData(name){
+       fetch('processors/search.php',{
+         method:'POST',
+         //body: JSON.stringify("name": name),
+         body: new URLSearchParams('name=' +name),
+        //  headers: {
+        //     "Content-Type": "application/json"
+        //   }
+       })
+       .then(res => res.json())
+       .then(res => console.log(res))
+       .then(res => console.error('Error: ' + e))
+     }
+
+     function viewSearchResult(data){
+       const dataViewer = document.getElementById('dataViewer');
+
+       dataViewer.innerHTML = " ";
+
+       for(let i = 0; i < data.lenght; i++){
+         
+       }
+     }
+   </script>
+
